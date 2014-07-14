@@ -1,6 +1,15 @@
 # Rulify
 
-Extensible, efficient rule engine for your app!
+(The goal is to create) Extensible, efficient rule engine for your app!
+
+Enough dealing with those retarded home-brew rule engines!
+The truth is that often having a bunch of javascripty dropdowns is not flexible enough, making you jump through the hoops to add new stuff.
+And all of this is tied inseparably with templates-javascripts-activerecords-and-who-knows-what-else. And God forbid they say they want to reuse this for that damn thingy!
+But it's all simple now - you provide inputs and hook up outputs, they provide rules, themselves.
+
+Wouldn't that be great? No hard-code, no loads of DB queries. Pure. Simple. Robust. Fast.
+
+Let's see if that can indeed happen!
 
 ## Installation
 
@@ -12,13 +21,9 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install rulify
-
 ## Usage
 
-TODO: Write usage instructions here
+Figuring out right meow. See acceptance tests.
 
 ## Contributing
 
