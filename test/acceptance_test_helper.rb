@@ -4,16 +4,13 @@ require 'rulify'
 require 'minitest/autorun'
 
 class RulifyAcceptanceTest < Minitest::Test
-  # def test(name, &blk)
-  #   if blk
-  #     define_method("test_#{name}", &blk)
-  #   else
-  #     define_method("test_#{name}") { skip }
-  #   end
-  # end
+  def self.test(name, &blk)
+    blk ||= proc { skip }
+    define_method("test_#{name}", &blk)
+  end
 
-  # def xtest(name)
-  #   define_method("test_#{name}") { skip }
-  # end
+  def self.xtest(name)
+    test(name)
+  end
 end
 
