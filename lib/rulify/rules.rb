@@ -1,18 +1,39 @@
 module Rulify
   class Rules
     def initialize(rules_text, inputs, outputs)
-      @parsed = Parser.new.parse(rules_text)
-      @rules = @parsed.map do |rule|
-        expression = rule[:expression]
-        expression.merge!(lhs_value: inputs.fetch(rule[:expression][:lhs_value][:entry_name].to_s)) if expression[:lhs_value]
-        output = outputs.fetch(rule[:output][:entry_name].to_s)
-        Rule.new(expression, output)
-      end
+      parsed = Parser.new.parse(rules_text)
+      transformed = Transformer.new.apply(parsed, inputs: inputs, outputs: outputs, operations: method(:operations))
+      @rules = transformed.map { |rule| Rule.new(rule[:expression], rule[:output]) }
     end
 
     def evaluate
       rule = @rules.detect(&:satisfied?) || UnmatchedRule.new(@rules)
       rule.output
+    end
+
+    def operations(op)
+      case op.to_s
+      when "is", "="
+        proc { |left, right| left.to_s == right.to_s }
+      when "in", "within"
+        proc { |left, right| right.include?(left.to_i) }
+      when ">"
+        proc { |left, right| left.to_i > right.to_i }
+      when ">="
+        proc { |left, right| left.to_i >= right.to_i }
+      when "<"
+        proc { |left, right| left.to_i < right.to_i }
+      when "<="
+        proc { |left, right| left.to_i <= right.to_i }
+      when "starts with"
+        proc { |left, right| left.to_s.start_with?(right.to_s) }
+      when "ends with"
+        proc { |left, right| left.to_s.end_with?(right.to_s) }
+      when "contains"
+        proc { |left, right| left.to_s.include?(right.to_s) }
+      when "none"
+        proc { true }
+      end
     end
   end
 end

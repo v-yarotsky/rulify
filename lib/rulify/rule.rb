@@ -7,30 +7,7 @@ module Rulify
     end
 
     def satisfied?
-      case @expression[:name].to_s
-      when "is", "="
-        @expression[:lhs_value].to_s == @expression[:rhs_value].to_s
-      when "none"
-        true
-      when "in", "within"
-        @expression[:rhs_value].include?(@expression[:lhs_value].to_i)
-      when ">"
-        @expression[:lhs_value].to_i > @expression[:rhs_value].to_i
-      when ">="
-        @expression[:lhs_value].to_i >= @expression[:rhs_value].to_i
-      when "<"
-        @expression[:lhs_value].to_i < @expression[:rhs_value].to_i
-      when "<="
-        @expression[:lhs_value].to_i <= @expression[:rhs_value].to_i
-      when "starts with"
-        @expression[:lhs_value].to_s.start_with?(@expression[:rhs_value].to_s)
-      when "ends with"
-        @expression[:lhs_value].to_s.end_with?(@expression[:rhs_value].to_s)
-      when "contains"
-        @expression[:lhs_value].to_s.include?(@expression[:rhs_value].to_s)
-      else
-        raise ArgumentError, "Unknown expression: #{@expression[:name]}"
-      end
+      @expression[:op].call(@expression[:lhs_value], @expression[:rhs_value])
     end
   end
 end

@@ -68,8 +68,8 @@ class TestRulify < RulifyAcceptanceTest
     end
 
     test "in" do
-      passes "if user.id in 99, 100 then passed"
-      fails  "if user.id in 99, 101 then passed"
+      passes "if user.id in (99, 100) then passed"
+      fails  "if user.id in (99, 101) then passed"
     end
 
     test ">" do
@@ -95,9 +95,9 @@ class TestRulify < RulifyAcceptanceTest
     end
 
     test "within" do
-      passes "if user.id within 90..100 then passed"
-      passes "if user.id within 90..110 then passed"
-      fails  "if user.id within 101..110 then passed"
+      passes "if user.id within (90..100) then passed"
+      passes "if user.id within (90..110) then passed"
+      fails  "if user.id within (101..110) then passed"
     end
 
     test "starts with" do
@@ -120,7 +120,7 @@ class TestRulify < RulifyAcceptanceTest
   end
 
   def inputs(values)
-    values
+    { "user" => values }
   end
 
   def outputs(*values)
