@@ -12,5 +12,9 @@ class RulifyAcceptanceTest < Minitest::Test
   def self.xtest(name)
     test(name)
   end
+
+  def self.group(name)
+    yield
+  end
 end
 
