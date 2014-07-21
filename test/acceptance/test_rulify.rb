@@ -6,7 +6,7 @@ class TestRulify < RulifyAcceptanceTest
       inputs("id" => "1"),
       outputs("gift_20_coins", "no_gift"),
 
-      "when user.id is 1 then gift_20_coins"
+      "if user.id is 1 then gift_20_coins"
     )
 
     assert_equal "gift_20_coins", result
@@ -17,8 +17,8 @@ class TestRulify < RulifyAcceptanceTest
       inputs("id" => "100"),
       outputs("gift_20_coins", "no_gift"),
 
-      "when user.id is 1 then gift_20_coins\n" \
-      "when none then no_gift"
+      "if user.id is 1 then gift_20_coins\n" \
+      "if none then no_gift"
     )
 
     assert_equal "no_gift", result
@@ -30,7 +30,7 @@ class TestRulify < RulifyAcceptanceTest
         inputs("id" => "100"),
         outputs("gift_20_coins"),
 
-        "when user.id is 1 then gift_20_coins"
+        "if user.id is 1 then gift_20_coins"
       )
     end
 
@@ -58,64 +58,64 @@ class TestRulify < RulifyAcceptanceTest
     end
 
     test "is" do
-      passes "when user.id is 100 then passed"
-      fails  "when user.id is 2 then passed"
+      passes "if user.id is 100 then passed"
+      fails  "if user.id is 2 then passed"
     end
 
     test "=" do
-      passes "when user.id = 100 then passed"
-      fails  "when user.id = 2 then passed"
+      passes "if user.id = 100 then passed"
+      fails  "if user.id = 2 then passed"
     end
 
     test "in" do
-      passes "when user.id in 99, 100 then passed"
-      fails  "when user.id in 99, 101 then passed"
+      passes "if user.id in 99, 100 then passed"
+      fails  "if user.id in 99, 101 then passed"
     end
 
     test ">" do
-      passes "when user.id > 1 then passed"
-      fails  "when user.id > 100 then passed"
+      passes "if user.id > 1 then passed"
+      fails  "if user.id > 100 then passed"
     end
 
     test ">=" do
-      passes "when user.id > 1 then passed"
-      passes "when user.id >= 100 then passed"
-      fails  "when user.id >= 101 then passed"
+      passes "if user.id > 1 then passed"
+      passes "if user.id >= 100 then passed"
+      fails  "if user.id >= 101 then passed"
     end
 
     test "<" do
-      passes "when user.id < 101 then passed"
-      fails  "when user.id < 100 then passed"
+      passes "if user.id < 101 then passed"
+      fails  "if user.id < 100 then passed"
     end
 
     test "<=" do
-      passes "when user.id <= 101 then passed"
-      passes "when user.id <= 100 then passed"
-      fails  "when user.id <= 99 then passed"
+      passes "if user.id <= 101 then passed"
+      passes "if user.id <= 100 then passed"
+      fails  "if user.id <= 99 then passed"
     end
 
     test "within" do
-      passes "when user.id within 90..100 then passed"
-      passes "when user.id within 90..110 then passed"
-      fails  "when user.id within 101..110 then passed"
+      passes "if user.id within 90..100 then passed"
+      passes "if user.id within 90..110 then passed"
+      fails  "if user.id within 101..110 then passed"
     end
 
     test "starts with" do
-      passes "when user.id starts with 1 then passed"
-      passes "when user.id starts with 10 then passed"
-      fails  "when user.id starts with 2 then passed"
+      passes "if user.id starts with 1 then passed"
+      passes "if user.id starts with 10 then passed"
+      fails  "if user.id starts with 2 then passed"
     end
 
     test "ends with" do
-      passes "when user.id ends with 0 then passed"
-      passes "when user.id ends with 00 then passed"
-      fails  "when user.id ends with 1 then passed"
+      passes "if user.id ends with 0 then passed"
+      passes "if user.id ends with 00 then passed"
+      fails  "if user.id ends with 1 then passed"
     end
 
     test "contains" do
-      passes "when user.id contains 00 then passed"
-      passes "when user.id contains 100 then passed"
-      fails  "when user.id contains 2 then passed"
+      passes "if user.id contains 00 then passed"
+      passes "if user.id contains 100 then passed"
+      fails  "if user.id contains 2 then passed"
     end
   end
 

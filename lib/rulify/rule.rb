@@ -12,8 +12,8 @@ module Rulify
         @expression[:lhs_value].to_s == @expression[:rhs_value].to_s
       when "none"
         true
-      when "in"
-        @expression[:rhs_value].to_s.split(/,\s*/).include?(@expression[:lhs_value])
+      when "in", "within"
+        @expression[:rhs_value].include?(@expression[:lhs_value].to_i)
       when ">"
         @expression[:lhs_value].to_i > @expression[:rhs_value].to_i
       when ">="
@@ -22,9 +22,6 @@ module Rulify
         @expression[:lhs_value].to_i < @expression[:rhs_value].to_i
       when "<="
         @expression[:lhs_value].to_i <= @expression[:rhs_value].to_i
-      when "within"
-        range_boundaries = @expression[:rhs_value].to_s.split("..")
-        Range.new(*range_boundaries).include?(@expression[:lhs_value].to_s)
       when "starts with"
         @expression[:lhs_value].to_s.start_with?(@expression[:rhs_value].to_s)
       when "ends with"
